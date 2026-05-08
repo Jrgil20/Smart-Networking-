@@ -1,0 +1,42 @@
+    Finished `release` profile [optimized] target(s) in 0.33s
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.13s
+     Running unittests src/lib.rs (/69fdfbaebe9241901c1ce123/contracts/target/debug/deps/workspace-51ba4ba41e55366b)
+
+Found a 'test' script in the Anchor.toml. Running it as a test suite!
+
+Running test suite: "/69fdfbaebe9241901c1ce123/contracts/Anchor.toml"
+
+yarn run v1.22.22
+$ /69fdfbaebe9241901c1ce123/contracts/node_modules/.bin/ts-mocha -p ./tsconfig.json -t 1000000 'tests/**/*.ts'
+
+
+  smart_networking
+    ✔ Initialize user profile for user1 (417ms)
+    ✔ Initialize user profile for user2 (405ms)
+    ✔ Initialize user profile for organizer (409ms)
+    ✔ Fails to initialize duplicate user profile
+    ✔ Create event successfully (399ms)
+    ✔ Fails to create duplicate event
+    ✔ Fails to create event with empty event_id (387ms)
+    ✔ Fails to create event with max_attendees = 0
+    ✔ User1 checks in to event (394ms)
+    ✔ User2 checks in to event (406ms)
+    ✔ Fails duplicate check-in for user1
+    ✔ Fails check-in to full event (818ms)
+    ✔ User1 submits a positive review for user2 (rating 5) (405ms)
+    ✔ User2 submits a negative review for user1 (rating 1) (401ms)
+    ✔ Fails to submit review with invalid rating (0) (1226ms)
+    ✔ Fails to submit review with invalid rating (6) (1219ms)
+    ✔ Fails duplicate review (same reviewer, same reviewed, same event)
+    ✔ Submit neutral review (rating 3) - no reputation change (391ms)
+    ✔ Organizer updates user1 reputation (407ms)
+    ✔ Fails update_reputation with non-organizer
+    ✔ Fails update_reputation with score > 100
+    ✔ Organizer sets reputation to 0 (edge case) (376ms)
+    ✔ Organizer sets reputation to 100 (edge case) (409ms)
+    ✔ User1 check-in count increments across events
+
+
+  24 passing (10s)
+
+Done in 11.70s.

@@ -1,0 +1,769 @@
+{
+  "address": "9yEGhSnNtkW6i6NxmXRniN2BNr6a8AvUxDf69h7DNSCm",
+  "metadata": {
+    "name": "workspace",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "check_in",
+      "discriminator": [
+        209,
+        253,
+        4,
+        217,
+        250,
+        241,
+        207,
+        50
+      ],
+      "accounts": [
+        {
+          "name": "event_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  118,
+                  101,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "event_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "attendance",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  116,
+                  116,
+                  101,
+                  110,
+                  100,
+                  97,
+                  110,
+                  99,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "event_id"
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "event_id",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "create_event",
+      "discriminator": [
+        49,
+        219,
+        29,
+        203,
+        22,
+        98,
+        100,
+        87
+      ],
+      "accounts": [
+        {
+          "name": "event_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  118,
+                  101,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "event_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "organizer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "event_id",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "max_attendees",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "initialize_config",
+      "discriminator": [
+        208,
+        127,
+        21,
+        1,
+        194,
+        190,
+        196,
+        70
+      ],
+      "accounts": [
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "interests_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "submit_review",
+      "discriminator": [
+        106,
+        30,
+        50,
+        83,
+        89,
+        46,
+        213,
+        239
+      ],
+      "accounts": [
+        {
+          "name": "review",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  118,
+                  105,
+                  101,
+                  119
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "event_id"
+              },
+              {
+                "kind": "account",
+                "path": "reviewer"
+              },
+              {
+                "kind": "account",
+                "path": "reviewed_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reviewer_attendance",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  116,
+                  116,
+                  101,
+                  110,
+                  100,
+                  97,
+                  110,
+                  99,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "event_id"
+              },
+              {
+                "kind": "account",
+                "path": "reviewer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reviewed_attendance",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  116,
+                  116,
+                  101,
+                  110,
+                  100,
+                  97,
+                  110,
+                  99,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "event_id"
+              },
+              {
+                "kind": "account",
+                "path": "reviewed_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reviewer_profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "reviewer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reviewed_profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "reviewed_user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "reviewer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "reviewed_user"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "event_id",
+          "type": "string"
+        },
+        {
+          "name": "rating",
+          "type": "u8"
+        },
+        {
+          "name": "comment_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "update_reputation",
+      "discriminator": [
+        194,
+        220,
+        43,
+        201,
+        54,
+        209,
+        49,
+        178
+      ],
+      "accounts": [
+        {
+          "name": "event_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  118,
+                  101,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "event_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  102,
+                  105,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user"
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "_event_id",
+          "type": "string"
+        },
+        {
+          "name": "new_score",
+          "type": "u16"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Attendance",
+      "discriminator": [
+        86,
+        179,
+        13,
+        208,
+        153,
+        204,
+        118,
+        63
+      ]
+    },
+    {
+      "name": "EventConfig",
+      "discriminator": [
+        85,
+        63,
+        74,
+        243,
+        198,
+        192,
+        138,
+        0
+      ]
+    },
+    {
+      "name": "UserProfile",
+      "discriminator": [
+        32,
+        37,
+        119,
+        205,
+        179,
+        180,
+        13,
+        194
+      ]
+    },
+    {
+      "name": "UserReview",
+      "discriminator": [
+        4,
+        79,
+        234,
+        154,
+        205,
+        89,
+        4,
+        35
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "EventNotActive",
+      "msg": "Event is not active"
+    },
+    {
+      "code": 6001,
+      "name": "EventFull",
+      "msg": "Event is full"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidRating",
+      "msg": "Invalid rating, must be 1-5"
+    },
+    {
+      "code": 6003,
+      "name": "ReputationOverflow",
+      "msg": "Reputation score overflow"
+    },
+    {
+      "code": 6004,
+      "name": "NotCheckedIn",
+      "msg": "User is not checked in"
+    },
+    {
+      "code": 6005,
+      "name": "Unauthorized",
+      "msg": "Unauthorized access"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidReputationScore",
+      "msg": "Invalid reputation score, must be 0-100"
+    },
+    {
+      "code": 6007,
+      "name": "InvalidParameter",
+      "msg": "Invalid parameter"
+    },
+    {
+      "code": 6008,
+      "name": "MathOverflow",
+      "msg": "Math overflow occurred"
+    }
+  ],
+  "types": [
+    {
+      "name": "Attendance",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "event_id",
+            "type": "string"
+          },
+          {
+            "name": "checked_in",
+            "type": "bool"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EventConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "organizer",
+            "type": "pubkey"
+          },
+          {
+            "name": "event_id",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "max_attendees",
+            "type": "u32"
+          },
+          {
+            "name": "current_attendees",
+            "type": "u32"
+          },
+          {
+            "name": "is_active",
+            "type": "bool"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserProfile",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "reputation_score",
+            "type": "u16"
+          },
+          {
+            "name": "badges_count",
+            "type": "u16"
+          },
+          {
+            "name": "total_check_ins",
+            "type": "u32"
+          },
+          {
+            "name": "total_matches",
+            "type": "u32"
+          },
+          {
+            "name": "total_reviews_given",
+            "type": "u32"
+          },
+          {
+            "name": "total_reviews_received",
+            "type": "u32"
+          },
+          {
+            "name": "interests_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "last_updated",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserReview",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "reviewer",
+            "type": "pubkey"
+          },
+          {
+            "name": "reviewed_user",
+            "type": "pubkey"
+          },
+          {
+            "name": "event_id",
+            "type": "string"
+          },
+          {
+            "name": "rating",
+            "type": "u8"
+          },
+          {
+            "name": "comment_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}
