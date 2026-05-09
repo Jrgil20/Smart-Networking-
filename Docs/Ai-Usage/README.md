@@ -8,4 +8,5 @@ Usa este directorio para auditar cambios asistidos por IA, verificar por qué se
 ## Archivos en esta carpeta
 
 - `ai-usage-05082926.md` — Resumen de la sesión de planificación y documentación general del hackathon.
-- `ai-usage-05092926.md` — Resumen de la sesión actual de limpieza de vulnerabilidades y actualización de dependencias.
+- `ai-usage-05092926.md` — Resumen de la sesión de limpieza de vulnerabilidades y actualización de dependencias.
+- `ai-usage-05090926-report.md` — Reporte actual que confirma que el uso de IA se documenta en el repo y no en la app.

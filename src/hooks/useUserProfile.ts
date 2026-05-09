@@ -1,35 +1,31 @@
 import { useState, useEffect } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { mockUserProfile, type UserProfile } from '@/lib/mockData';
+import { createProfileForWallet, mockUserProfile, type UserProfile } from '@/lib/mockData';
 
 /**
  * Hook to fetch user profile data.
- * Currently returns mock data; will be replaced with on-chain PDA fetch.
+ * Returns mock data when disconnected, and wallet-specific data when connected.
  */
 export function useUserProfile() {
   const { publicKey, connected } = useWallet();
-  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [profile, setProfile] = useState<UserProfile>(mockUserProfile);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!connected || !publicKey) {
-      setProfile(null);
+      setProfile(mockUserProfile);
       setLoading(false);
       return;
     }
 
-    // Simulate async PDA fetch
     setLoading(true);
     const timer = setTimeout(() => {
-      setProfile({
-        ...mockUserProfile,
-        wallet: publicKey.toBase58(),
-      });
+      setProfile(createProfileForWallet(publicKey.toBase58()));
       setLoading(false);
     }, 400);
 
     return () => clearTimeout(timer);
   }, [connected, publicKey]);
 
-  return { profile, loading, connected };
+  return { profile, loading, connected, isDemoMode: !connected };
 }

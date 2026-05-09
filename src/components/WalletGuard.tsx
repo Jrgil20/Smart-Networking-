@@ -21,7 +21,7 @@ const WalletGuard: React.FC<WalletGuardProps> = ({ children }) => {
             Connect Your Wallet
           </h2>
           <p className="text-muted-foreground mb-8 leading-relaxed">
-            Smart Networking requires a Solana wallet to verify your identity. Connect Phantom or Solflare to continue.
+            Smart Networking requires a Solana wallet to verify your identity. Connect Phantom, Solflare, Slope, or Torus to continue.
           </p>
           <WalletMultiButton />
         </div>

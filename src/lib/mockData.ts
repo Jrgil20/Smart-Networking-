@@ -27,6 +27,7 @@ export interface EventConfig {
   maxAttendees: number;
   tags: string[];
   imageUrl?: string;
+  lumaUrl?: string; // Optional URL to linked Luma event
   status: 'upcoming' | 'live' | 'past';
   createdAt: number;
 }
@@ -94,6 +95,19 @@ export const mockUserProfile: UserProfile = {
   totalReviewsGiven: 9,
   totalReviewsReceived: 15,
   interests: ['AI', 'Blockchain', 'DeFi', 'Solana', 'Product Design'],
+  lastUpdated: Date.now(),
+};
+
+// Empty profile for new users (when wallet is connected but has no on-chain data)
+export const emptyUserProfile: UserProfile = {
+  wallet: '',
+  reputationScore: 0,
+  badgesCount: 0,
+  totalCheckIns: 0,
+  totalMatches: 0,
+  totalReviewsGiven: 0,
+  totalReviewsReceived: 0,
+  interests: [],
   lastUpdated: Date.now(),
 };
 
@@ -407,6 +421,47 @@ export const mockReviewableUsers: Record<string, { wallet: string; displayName: 
 // -----------------------------------------------------------
 export function truncateWallet(wallet: string, chars = 4): string {
   return `${wallet.slice(0, chars)}...${wallet.slice(-chars)}`;
+}
+
+function seededValue(wallet: string, max: number, offset = 0): number {
+  const seed = wallet
+    .split('')
+    .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return offset + (seed % max);
+}
+
+function chooseInterests(wallet: string): string[] {
+  const pool = ['AI', 'Blockchain', 'DeFi', 'Solana', 'Product Design', 'NFTs', 'Security', 'Web3', 'Data', 'UX'];
+  const seed = wallet
+    .split('')
+    .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const interests: string[] = [];
+
+  for (let i = 0; i < pool.length && interests.length < 5; i += 1) {
+    const index = (seed + i * 7) % pool.length;
+    const interest = pool[index];
+    if (!interests.includes(interest)) {
+      interests.push(interest);
+    }
+  }
+
+  return interests;
+}
+
+export function createProfileForWallet(wallet: string): UserProfile {
+  // Return empty profile for connected wallet (real blockchain data)
+  // This represents a new user with no on-chain history yet
+  return {
+    ...emptyUserProfile,
+    wallet,
+    lastUpdated: Date.now(),
+  };
+}
+
+export function getAttendancesForWallet(wallet: string): Attendance[] {
+  // Return empty array for connected wallet (real blockchain data)
+  // User has no check-ins until they actually attend events
+  return [];
 }
 
 export function getEventById(eventId: string): EventConfig | undefined {

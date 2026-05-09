@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { Zap, Menu, X, LayoutDashboard, User } from 'lucide-react';
+import { Zap, Menu, X, LayoutDashboard, User, Plus, Compass, BookMarked } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar: React.FC = () => {
@@ -60,6 +60,27 @@ const Navbar: React.FC = () => {
               >
                 <LayoutDashboard className="w-3.5 h-3.5" />
                 Dashboard
+              </Link>
+              <Link
+                to="/browse-events"
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                <Compass className="w-3.5 h-3.5" />
+                Explore
+              </Link>
+              <Link
+                to="/create-event"
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                Create
+              </Link>
+              <Link
+                to="/manage-events"
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                <BookMarked className="w-3.5 h-3.5" />
+                My Events
               </Link>
               <Link
                 to="/profile"
@@ -121,6 +142,30 @@ const Navbar: React.FC = () => {
                   >
                     <LayoutDashboard className="w-3.5 h-3.5" />
                     Dashboard
+                  </Link>
+                  <Link
+                    to="/browse-events"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground py-2"
+                  >
+                    <Compass className="w-3.5 h-3.5" />
+                    Explore Events
+                  </Link>
+                  <Link
+                    to="/create-event"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground py-2"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    Create Event
+                  </Link>
+                  <Link
+                    to="/manage-events"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground py-2"
+                  >
+                    <BookMarked className="w-3.5 h-3.5" />
+                    My Events
                   </Link>
                   <Link
                     to="/profile"

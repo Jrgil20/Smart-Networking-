@@ -7,7 +7,7 @@ const steps = [
     number: '01',
     icon: Wallet,
     title: 'Connect Wallet',
-    description: 'Link your Phantom or Solflare wallet. No signup, no app download. Your wallet is your identity.',
+    description: 'Link your Phantom, Solflare, Slope, or Torus wallet. No signup, no app download. Your wallet is your identity.',
   },
   {
     number: '02',

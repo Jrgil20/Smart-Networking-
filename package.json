@@ -46,6 +46,8 @@
     "@solana/wallet-adapter-react": "^0.15.38",
     "@solana/wallet-adapter-react-ui": "^0.9.38",
     "@solana/wallet-adapter-solflare": "^0.6.33",
+    "@solana/wallet-adapter-slope": "^0.5.21",
+    "@solana/wallet-adapter-torus": "^0.11.32",
     "@solana/web3.js": "^1.98.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
