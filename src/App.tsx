@@ -1,264 +1,48 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+import React, { useMemo } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { clusterApiUrl } from '@solana/web3.js';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
+import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare';
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+import Index from '@/pages/Index';
+import Dashboard from '@/pages/Dashboard';
+import EventDetail from '@/pages/EventDetail';
+import Matches from '@/pages/Matches';
+import Reviews from '@/pages/Reviews';
+import Profile from '@/pages/Profile';
+import NotFound from '@/pages/NotFound';
 
-@layer base {
-  :root {
-    /* Smart Networking - Dark Premium Theme */
-    --background: 220 20% 4%;
-    --foreground: 210 20% 92%;
+const App: React.FC = () => {
+  const network = WalletAdapterNetwork.Devnet;
+  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  const wallets = useMemo(
+    () => [
+      new PhantomWalletAdapter(),
+      new SolflareWalletAdapter(),
+    ],
+    [],
+  );
 
-    --card: 220 18% 7%;
-    --card-foreground: 210 20% 92%;
+  return (
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} autoConnect>
+        <WalletModalProvider>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/event/:eventId" element={<EventDetail />} />
+            <Route path="/event/:eventId/matches" element={<Matches />} />
+            <Route path="/event/:eventId/reviews" element={<Reviews />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
+  );
+};
 
-    --popover: 220 18% 7%;
-    --popover-foreground: 210 20% 92%;
-
-    /* Primary - Electric Cyan */
-    --primary: 187 90% 52%;
-    --primary-foreground: 220 20% 4%;
-
-    /* Secondary - Dark surface */
-    --secondary: 220 16% 12%;
-    --secondary-foreground: 210 20% 80%;
-
-    --muted: 220 14% 14%;
-    --muted-foreground: 215 12% 50%;
-
-    /* Accent - Gold/Amber for reputation */
-    --accent: 42 92% 56%;
-    --accent-foreground: 220 20% 4%;
-
-    --destructive: 0 72% 55%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 14% 14%;
-    --input: 220 14% 14%;
-    --ring: 187 90% 52%;
-
-    --radius: 0.75rem;
-
-    /* Sidebar */
-    --sidebar-background: 220 18% 6%;
-    --sidebar-foreground: 210 20% 80%;
-    --sidebar-primary: 187 90% 52%;
-    --sidebar-primary-foreground: 220 20% 4%;
-    --sidebar-accent: 220 16% 12%;
-    --sidebar-accent-foreground: 210 20% 80%;
-    --sidebar-border: 220 14% 14%;
-    --sidebar-ring: 187 90% 52%;
-
-    /* Custom tokens */
-    --glow-primary: 187 90% 52%;
-    --glow-accent: 42 92% 56%;
-    --surface-elevated: 220 16% 9%;
-
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(187 90% 52%) 0%, hsl(195 85% 42%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(42 92% 56%) 0%, hsl(32 88% 50%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(220 20% 4%) 0%, hsl(220 22% 8%) 50%, hsl(220 20% 4%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(220 18% 8%) 0%, hsl(220 18% 6%) 100%);
-    --gradient-mesh: radial-gradient(ellipse at 20% 50%, hsl(187 90% 52% / 0.06) 0%, transparent 50%),
-                     radial-gradient(ellipse at 80% 20%, hsl(42 92% 56% / 0.04) 0%, transparent 50%),
-                     radial-gradient(ellipse at 50% 80%, hsl(187 90% 52% / 0.03) 0%, transparent 50%);
-
-    /* Shadows */
-    --shadow-sm: 0 2px 8px hsl(220 20% 2% / 0.4);
-    --shadow-md: 0 4px 16px hsl(220 20% 2% / 0.5);
-    --shadow-lg: 0 8px 32px hsl(220 20% 2% / 0.6);
-    --shadow-glow: 0 0 30px hsl(187 90% 52% / 0.15);
-    --shadow-glow-accent: 0 0 30px hsl(42 92% 56% / 0.15);
-
-    /* Typography */
-    --font-display: 'Space Grotesk', sans-serif;
-    --font-body: 'Inter', sans-serif;
-  }
-}
-
-@layer base {
-  * {
-    border-color: hsl(var(--border));
-  }
-
-  body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    font-family: var(--font-body);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
-  }
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
-}
-
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted));
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground));
-}
-
-/* Wallet button overrides */
-.wallet-adapter-button-trigger {
-  background: hsl(var(--primary)) !important;
-  color: hsl(var(--primary-foreground)) !important;
-  border-radius: var(--radius) !important;
-  font-family: var(--font-display) !important;
-  font-weight: 600 !important;
-  font-size: 0.875rem !important;
-  padding: 0.625rem 1.25rem !important;
-  height: auto !important;
-  line-height: 1.4 !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  border: 1px solid hsl(var(--primary) / 0.3) !important;
-  box-shadow: 0 0 20px hsl(var(--primary) / 0.15) !important;
-}
-
-.wallet-adapter-button-trigger:hover {
-  background: hsl(187 90% 45%) !important;
-  box-shadow: 0 0 30px hsl(var(--primary) / 0.3) !important;
-  transform: translateY(-1px) !important;
-}
-
-.wallet-adapter-button-trigger:active {
-  transform: translateY(0) !important;
-}
-
-.wallet-adapter-modal-wrapper {
-  background: hsl(var(--card)) !important;
-  border: 1px solid hsl(var(--border)) !important;
-  border-radius: 1rem !important;
-}
-
-.wallet-adapter-modal-title {
-  font-family: var(--font-display) !important;
-  color: hsl(var(--foreground)) !important;
-}
-
-.wallet-adapter-modal-list .wallet-adapter-button {
-  background: hsl(var(--secondary)) !important;
-  color: hsl(var(--foreground)) !important;
-  border-radius: var(--radius) !important;
-  font-family: var(--font-body) !important;
-}
-
-.wallet-adapter-modal-list .wallet-adapter-button:hover {
-  background: hsl(var(--muted)) !important;
-}
-
-.wallet-adapter-modal-button-close {
-  background: hsl(var(--muted)) !important;
-}
-
-.wallet-adapter-modal-button-close svg {
-  fill: hsl(var(--foreground)) !important;
-}
-
-/* Utility classes */
-@layer utilities {
-  .text-gradient-primary {
-    background: linear-gradient(135deg, hsl(187 90% 52%), hsl(195 85% 65%));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .text-gradient-accent {
-    background: linear-gradient(135deg, hsl(42 92% 56%), hsl(32 88% 65%));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .bg-mesh {
-    background: var(--gradient-mesh);
-  }
-
-  .bg-hero-gradient {
-    background: var(--gradient-hero);
-  }
-
-  .glass {
-    background: hsl(var(--card) / 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid hsl(var(--border) / 0.5);
-  }
-
-  .glass-strong {
-    background: hsl(var(--card) / 0.85);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid hsl(var(--border));
-  }
-
-  .glow-primary {
-    box-shadow: var(--shadow-glow);
-  }
-
-  .glow-accent {
-    box-shadow: var(--shadow-glow-accent);
-  }
-
-  .border-glow {
-    border: 1px solid hsl(var(--primary) / 0.25);
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-pulse-soft {
-    animation: pulseSoft 4s ease-in-out infinite;
-  }
-
-  .animate-shimmer {
-    animation: shimmer 3s linear infinite;
-    background-size: 200% 100%;
-  }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-
-@keyframes pulseSoft {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-}
+export default App;

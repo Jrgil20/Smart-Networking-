@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Users, Sparkles } from 'lucide-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
-import heroBg from '@/assets/hero-bg.png';
 
 const stats = [
   { value: '$0.004', label: 'Per Transaction' },
@@ -19,11 +18,6 @@ const HeroSection: React.FC = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background layers */}
       <div className="absolute inset-0 bg-hero-gradient" />
-      <img
-        src={heroBg}
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none"
-      />
       <div className="absolute inset-0 bg-mesh" />
       <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-20" />
 
