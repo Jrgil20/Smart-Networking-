@@ -1,7 +1,8 @@
 # Smart-Networking-
 
-Este proyecto lleva un registro del uso de IA en la carpeta `Ai-Usage`.
-Allí se guardan resúmenes de sesiones de asistencia con IA, decisiones de dependencia y cambios importantes.
+Smart-Networking es una aplicación Web3 diseñada para mejorar el networking en eventos, hackathons y comunidades técnicas.
+
+> Nota: la aplicación y la mayor parte de la interfaz están en inglés, pero este README incluye información clave en español para documentar el proyecto.
 
 ## Hackathon Project
 
@@ -24,3 +25,40 @@ Despite the limited time and working alone, the project achieved:
 
 Hackathon project page:
 https://hack.dev3pack.xyz/projects/jx74g77axh7x08d654wcz8wcm186fevc
+
+## Información adicional
+
+### Descripción
+
+Smart-Networking es una plataforma que combina frontend React con lógica Web3 en Solana para facilitar el networking en eventos técnicos. La app permite crear eventos, hacer check-in, revisar participantes, recibir recomendaciones de match y gestionar reputación.
+
+### Tecnologías principales
+
+- React + TypeScript + Vite
+- Tailwind CSS
+- Solana + Anchor
+- @solana/wallet-adapter (Phantom, Solflare, Slope, Torus)
+- Radix UI + Framer Motion
+- Supabase JS como posible capa de datos off-chain
+
+### Estructura del repositorio
+
+- `src/`: código del frontend y componentes UI
+- `contracts/`: contrato Anchor y programa Rust en Solana
+- `Docs/`: documentación y registros de uso de IA
+- `Ai-Usage/`: historial de sesiones con IA, decisiones y cambios importantes
+
+### Scripts útiles
+
+```bash
+npm install
+npm run dev
+npm run build
+npm run preview
+npm run lint
+```
+
+## Observaciones
+
+- La app está casi completamente en inglés.
+- El README y la documentación del proyecto pueden ser bilingües para facilitar el mantenimiento y la presentación.
